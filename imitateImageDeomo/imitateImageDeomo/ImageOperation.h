@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ImageOperation : NSObject
+@protocol WebImageOperation <NSObject>
+
+- (void)cancel;
 
 @end

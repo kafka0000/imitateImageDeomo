@@ -10,4 +10,12 @@
 
 @implementation ImageCache
 
++ (id)sharedManager {
+    static dispatch_once_t once;
+    static id instance;
+    dispatch_once(&once, ^{
+        instance = [self new];
+    });
+    return instance;
+}
 @end

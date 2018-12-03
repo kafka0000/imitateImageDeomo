@@ -11,22 +11,28 @@
 #if !__has_feature(objc_arc)
 #error SDWebImage is ARC only. Either turn on ARC for the project or use -fobjc-arc flag
 #endif
-
+/**
+ 给定一张图片，通过scale属性返回放大的图片
+ @param key 图片名称
+ @param image 资源图片
+ @return 处理以后的图片
+ */
 inline UIImage *SDScaledImageForKey(NSString *key, UIImage *image) {
+    //异常处理
     if (!image) {
         return nil;
     }
     //如果多张图片说明是gif图片
     if ([image.images count] > 0) {
         NSMutableArray *scaledImages = [NSMutableArray array];
-
+        //迭代处理每一张图片
         for (UIImage *tempImage in image.images) {
             [scaledImages addObject:SDScaledImageForKey(key, tempImage)];
         }
-        //创建gif图片对象
+        //把处理结束的图片再合成一张动态图片
         return [UIImage animatedImageWithImages:scaledImages duration:image.duration];
     }
-    else {
+    else {// 非动态图片
         //屏幕包含缩放尺寸
         if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
             CGFloat scale = 1;

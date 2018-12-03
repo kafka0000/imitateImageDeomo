@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-
+typedef NS_OPTIONS(NSInteger, SDImageCacheType){
+    SDImageCacheTypeNone,
+    SDImageCacheTypeDisk,
+    SDImageCacheTypeMemory
+};
 @interface ImageCache : NSObject
-
++ (id)sharedManager;
 @end
